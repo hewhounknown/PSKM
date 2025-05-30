@@ -1,0 +1,6 @@
+services:
+  pskm.api:
+    image: ${DOCKER_REGISTRY-}pskmapi
+    build:
+      context: .
+      dockerfile: PSKM.API/Dockerfile

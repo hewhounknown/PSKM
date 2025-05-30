@@ -1,0 +1,6 @@
+@PSKM.API_HostAddress = http://localhost:5044
+
+GET {{PSKM.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
