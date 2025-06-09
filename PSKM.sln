@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSKM.API", "PSKM.API\PSKM.API.csproj", "{8434676D-538C-43A6-92C9-0A7C555E338E}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4D1A46C0-D837-44A3-BF1F-CC9A1369D2BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSKM.Data", "PSKM.Data\PSKM.Data.csproj", "{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSKM.Domain", "PSKM.Domain\PSKM.Domain.csproj", "{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{4D1A46C0-D837-44A3-BF1F-CC9A1369D2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D1A46C0-D837-44A3-BF1F-CC9A1369D2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D1A46C0-D837-44A3-BF1F-CC9A1369D2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
