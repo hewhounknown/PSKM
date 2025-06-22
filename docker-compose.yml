@@ -17,7 +17,7 @@ services:
     container_name: pskmdb
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=p0stgr3
+      - POSTGRES_PASSWORD=111021
       - POSTGRES_DB=pskm
     ports:
       - 5432:5432
