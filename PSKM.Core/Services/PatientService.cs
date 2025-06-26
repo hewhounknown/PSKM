@@ -1,4 +1,5 @@
-﻿using PSKM.Common.Interfaces;
+﻿using PSKM.Common.Enums;
+using PSKM.Common.Interfaces;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.API.Services;
@@ -12,7 +13,7 @@ public class PatientService : IPatientService
                 _patientRepository = patientRepository;
         }
 
-        public async Task<bool> RegisterPatient(PatientRequestModel patient)
+        public async Task<EnumResult> RegisterPatient(PatientRequestModel patient)
         {
                 return await _patientRepository.Add(patient);
         }
@@ -22,7 +23,7 @@ public class PatientService : IPatientService
                 return await _patientRepository.GetAll();
         }
 
-        public async Task<PatientModel> ViewPatient(int patientId)
+        public async Task<PatientResponseModel> ViewPatient(int patientId)
         {
                 return await _patientRepository.GetById(patientId);
         }

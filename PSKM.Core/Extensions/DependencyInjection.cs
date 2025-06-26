@@ -1,10 +1,11 @@
 ﻿using PSKM.API.Services;
 using PSKM.Data.Repositories;
 using PSKM.Common.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PSKM.API.Extensions;
 
-public static class ModularService
+public static class DependencyInjection
 {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PSKM.API.Extensions;
 using PSKM.Data;
+using PSKM.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 

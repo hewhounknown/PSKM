@@ -46,4 +46,19 @@ public class PatientController : Controller
                 }
 
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+                try
+                {
+                        var patient = await _patientService.ViewPatient(id);
+                        return Ok(patient);
+                }
+                catch (Exception ex)
+                {
+
+                        return StatusCode(500, new { message = ex.Message });
+                }
+        }
 }

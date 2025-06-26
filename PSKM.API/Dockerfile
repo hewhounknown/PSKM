@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["PSKM.API/PSKM.API.csproj", "PSKM.API/"]
+COPY ["PSKM.Core/PSKM.Core.csproj", "PSKM.Core/"]
 COPY ["PSKM.Data/PSKM.Data.csproj", "PSKM.Data/"]
 COPY ["PSKM.Common/PSKM.Common.csproj", "PSKM.Common/"]
 RUN dotnet restore "./PSKM.API/PSKM.API.csproj"

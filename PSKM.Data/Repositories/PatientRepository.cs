@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PSKM.Common.Enums;
 using PSKM.Common.Interfaces;
 using PSKM.Common.Models.Patient;
 
@@ -13,7 +14,7 @@ public class PatientRepository : IPatientRepository
                 _context = context;
         }
 
-        public async Task<bool> Add(PatientRequestModel patient)
+        public async Task<EnumResult> Add(PatientRequestModel patient)
         {
                 var newPatient = new PatientModel
                 {
@@ -25,12 +26,7 @@ public class PatientRepository : IPatientRepository
                 };
                 await _context.AddAsync(newPatient);
                 int result = await _context.SaveChangesAsync();
-                return result > 0? true: false;
-        }
-
-        public Task<bool> Delete(int id)
-        {
-                throw new NotImplementedException();
+                return result > 0? EnumResult.Success : EnumResult.Fail;
         }
 
         public async Task<List<PatientModel>> GetAll()
@@ -38,12 +34,33 @@ public class PatientRepository : IPatientRepository
                 return await _context.Patients.ToListAsync();
         }
 
-        public async Task<PatientModel> GetById(int id)
+        public async Task<PatientResponseModel> GetById(int id)
         {
-                return await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == id);
+                var patient = await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == id);
+
+                if (patient == null) return new PatientResponseModel 
+                { 
+                        IsSuccess = false,
+                        Message = EnumResult.Notfound.ToString(),
+                        Patient = null
+                };
+
+                var p = new PatientResponseModel
+                {
+                        IsSuccess = true,
+                        Message = EnumResult.Success.ToString(),
+                        Patient = patient
+                };
+
+                return p;
         }
 
-        public Task<bool> Update(PatientRequestModel patient)
+        Task<EnumResult> IPatientRepository.Delete(int id)
+        {
+                throw new NotImplementedException();
+        }
+
+        Task<EnumResult> IPatientRepository.Update(PatientRequestModel patient)
         {
                 throw new NotImplementedException();
         }

@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PSKM.Common\PSKM.Common.csproj" />
+    <ProjectReference Include="..\PSKM.Core\PSKM.Core.csproj" />
     <ProjectReference Include="..\PSKM.Data\PSKM.Data.csproj" />
   </ItemGroup>
 
