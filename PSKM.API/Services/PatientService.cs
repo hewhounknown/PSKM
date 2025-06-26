@@ -1,5 +1,5 @@
-﻿using PSKM.Domain.Interfaces;
-using PSKM.Domain.Models.Patient;
+﻿using PSKM.Common.Interfaces;
+using PSKM.Common.Models.Patient;
 
 namespace PSKM.API.Services;
 

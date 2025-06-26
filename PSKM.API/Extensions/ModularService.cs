@@ -1,6 +1,6 @@
 ﻿using PSKM.API.Services;
 using PSKM.Data.Repositories;
-using PSKM.Domain.Interfaces;
+using PSKM.Common.Interfaces;
 
 namespace PSKM.API.Extensions;
 

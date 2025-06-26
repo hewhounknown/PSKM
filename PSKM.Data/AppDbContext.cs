@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PSKM.Domain.Models.Patient;
+using PSKM.Common.Models.Patient;
 
 namespace PSKM.Data;
 

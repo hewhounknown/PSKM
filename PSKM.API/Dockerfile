@@ -14,7 +14,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["PSKM.API/PSKM.API.csproj", "PSKM.API/"]
 COPY ["PSKM.Data/PSKM.Data.csproj", "PSKM.Data/"]
-COPY ["PSKM.Domain/PSKM.Domain.csproj", "PSKM.Domain/"]
+COPY ["PSKM.Common/PSKM.Common.csproj", "PSKM.Common/"]
 RUN dotnet restore "./PSKM.API/PSKM.API.csproj"
 COPY . .
 WORKDIR "/src/PSKM.API"

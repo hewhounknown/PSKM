@@ -1,11 +1,11 @@
-﻿using PSKM.Domain.Models.Patient;
+﻿using PSKM.Common.Models.Patient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSKM.Domain.Interfaces;
+namespace PSKM.Common.Interfaces;
 
 public interface IPatientService
 {

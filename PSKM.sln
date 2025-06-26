@@ -9,7 +9,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSKM.Data", "PSKM.Data\PSKM.Data.csproj", "{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSKM.Domain", "PSKM.Domain\PSKM.Domain.csproj", "{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSKM.Common", "PSKM.Common\PSKM.Common.csproj", "{0FCB45D2-F78E-487D-A123-8022801F1AE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51D8A7C4-8AE2-4812-B15A-8BC57E914A83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CD5095D-3A54-47D9-A8F7-70F639E72D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FCB45D2-F78E-487D-A123-8022801F1AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FCB45D2-F78E-487D-A123-8022801F1AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FCB45D2-F78E-487D-A123-8022801F1AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FCB45D2-F78E-487D-A123-8022801F1AE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
-﻿using PSKM.Domain.Models.Patient;
+﻿using PSKM.Common.Models.Patient;
 
-namespace PSKM.Domain.Interfaces;
+namespace PSKM.Common.Interfaces;
 
 public interface IPatientRepository
 {

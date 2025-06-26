@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PSKM.Domain\PSKM.Domain.csproj" />
+    <ProjectReference Include="..\PSKM.Common\PSKM.Common.csproj" />
   </ItemGroup>
 
 </Project>

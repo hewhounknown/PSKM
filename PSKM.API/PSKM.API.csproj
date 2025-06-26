@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PSKM.Common\PSKM.Common.csproj" />
     <ProjectReference Include="..\PSKM.Data\PSKM.Data.csproj" />
-    <ProjectReference Include="..\PSKM.Domain\PSKM.Domain.csproj" />
   </ItemGroup>
 
 </Project>

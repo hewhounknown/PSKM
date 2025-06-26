@@ -1,4 +1,4 @@
-﻿namespace PSKM.Domain.Models.Patient;
+﻿namespace PSKM.Common.Models.Patient;
 
 public class PatientRequestModel
 {
