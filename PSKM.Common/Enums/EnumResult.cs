@@ -1,9 +1,8 @@
-﻿namespace PSKM.Common.Enums
+﻿namespace PSKM.Common.Enums;
+
+public enum EnumResult
 {
-        public enum EnumResult
-        {
-                Success,
-                Fail,
-                Notfound
-        }
+        Success,
+        Fail,
+        Notfound
 }
