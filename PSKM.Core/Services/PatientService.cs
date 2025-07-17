@@ -2,7 +2,7 @@
 using PSKM.Common.Interfaces;
 using PSKM.Common.Models.Patient;
 
-namespace PSKM.API.Services;
+namespace PSKM.Core.Services;
 
 public class PatientService : IPatientService
 {

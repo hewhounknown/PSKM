@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using PSKM.API.Extensions;
+using PSKM.Core.Extensions;
 using PSKM.Data;
 using PSKM.Core;
 

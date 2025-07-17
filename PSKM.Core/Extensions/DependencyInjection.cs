@@ -1,9 +1,9 @@
-﻿using PSKM.API.Services;
+﻿using PSKM.Core.Services;
 using PSKM.Data.Repositories;
 using PSKM.Common.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace PSKM.API.Extensions;
+namespace PSKM.Core.Extensions;
 
 public static class DependencyInjection
 {
