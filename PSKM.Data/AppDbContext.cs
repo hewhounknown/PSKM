@@ -53,9 +53,10 @@ public class AppDbContext : DbContext
                         builder.Property(x => x.Email).IsRequired();
                         builder.Property(x => x.Phone).IsRequired().HasMaxLength(20);
                         //add specialistid as FK
-                        builder.HasOne<SpecialistModel>().WithMany()
+                        builder.HasOne(d => d.Specialist)
+                        .WithMany()
                         .HasForeignKey(x => x.SpecialistId)
-                        .OnDelete(DeleteBehavior.SetNull).IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
                 //for appointment table in DB

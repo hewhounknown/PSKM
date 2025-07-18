@@ -1,11 +1,13 @@
-﻿using PSKM.Common.Models.Patient;
+﻿using PSKM.Common.Models.Doctor;
+using PSKM.Common.Models.Patient;
 
 namespace PSKM.Common.Mappings;
 
 
-// This class is responsible for mapping between Patient Models.
+// This class is responsible for mapping between Models.
 public static class Mapper
 {
+        //PatientRequestModel to PatientModel
         public static PatientModel Map(this PatientRequestModel request)
         {
                 return new PatientModel
@@ -18,4 +20,15 @@ public static class Mapper
                 };
         }
 
+        //DoctorRequestModel to DoctorModel
+        public static DoctorModel Map(this DoctorRequestModel request)
+        {
+                return new DoctorModel
+                {
+                        DoctorName = request.DoctorName,
+                        SpecialistId = request.SpecialistId,
+                        Email = request.Email,
+                        Phone = request.Phone,
+                };
+        }
 }

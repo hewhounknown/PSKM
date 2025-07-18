@@ -21,9 +21,9 @@ public class SpecialistController : Controller
                 try
                 {
                         var result = await _specialistService.AddSpecialist(request);
-                        return Ok(result);
+                        return Ok(result.ToString());
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                         return StatusCode(500, new { message = ex.Message });
                 }
@@ -49,7 +49,7 @@ public class SpecialistController : Controller
                 try
                 {
                         var result = await _specialistService.EditSpecialist(id, request);
-                        return Ok(result);
+                        return Ok(result.ToString());
                 }
                 catch (Exception ex)
                 {
@@ -63,7 +63,7 @@ public class SpecialistController : Controller
                 try
                 {
                         var result = await _specialistService.DeleteSpecialist(id);
-                        return Ok(result);
+                        return Ok(result.ToString());
                 }
                 catch (Exception ex)
                 {

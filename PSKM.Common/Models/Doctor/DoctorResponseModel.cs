@@ -3,7 +3,9 @@ namespace PSKM.Common.Models.Doctor;
 
 public class DoctorResponseModel
 {
-        public bool IsSuccess { get; set; }
-        public string Message { get; set; }
-        public DoctorModel Doctor { get; set; }
+        public int DoctorId { get; set; }
+        public string DoctorName { get; set; }
+        public string Specialist {  get; set; }  // used for specialist name in API return
+        public string Email { get; set; }
+        public string Phone {  get; set; }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PSKM.Data;
@@ -11,9 +12,11 @@ using PSKM.Data;
 namespace PSKM.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250718193515_ChangeSpecialistFk")]
+    partial class ChangeSpecialistFk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,9 +85,14 @@ namespace PSKM.Data.Migrations
                     b.Property<int?>("SpecialistId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("SpecialistId1")
+                        .HasColumnType("integer");
+
                     b.HasKey("DoctorId");
 
                     b.HasIndex("SpecialistId");
+
+                    b.HasIndex("SpecialistId1");
 
                     b.ToTable("Doctor", (string)null);
                 });
@@ -162,10 +170,14 @@ namespace PSKM.Data.Migrations
 
             modelBuilder.Entity("PSKM.Common.Models.Doctor.DoctorModel", b =>
                 {
-                    b.HasOne("PSKM.Common.Models.Specialist.SpecialistModel", "Specialist")
+                    b.HasOne("PSKM.Common.Models.Specialist.SpecialistModel", null)
                         .WithMany()
                         .HasForeignKey("SpecialistId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("PSKM.Common.Models.Specialist.SpecialistModel", "Specialist")
+                        .WithMany()
+                        .HasForeignKey("SpecialistId1");
 
                     b.Navigation("Specialist");
                 });

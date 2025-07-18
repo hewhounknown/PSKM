@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PSKM.Common.Enums;
 using PSKM.Common.Interfaces.Specialist;
 using PSKM.Common.Models;
@@ -34,8 +33,11 @@ public class SpecialistRepository : ISpecialistRepository
 
         public async Task<EnumResult> Delete(int id)
         {
-                await _context.Specialists
-                    .Where(s => s.SpecialistId == id).ExecuteDeleteAsync();
+                var specialist = await _context.Specialists.FirstOrDefaultAsync(s => s.SpecialistId == id);
+
+                if (specialist == null) return EnumResult.Notfound;
+                
+                _context.Specialists.Remove(specialist);
                 int result = await _context.SaveChangesAsync();
 
                 return result > 0 ? EnumResult.Success : EnumResult.Fail;
@@ -45,7 +47,7 @@ public class SpecialistRepository : ISpecialistRepository
         {
                 var specialists = await _context.Specialists.ToListAsync();
 
-                if (specialists == null || specialists.Count == 0)
+                if (specialists is null || specialists.Count is 0)
                 {
                         return ResponseModel<List<SpecialistModel>>.Fail(EnumResult.Notfound.ToString());
                 }
@@ -56,13 +58,10 @@ public class SpecialistRepository : ISpecialistRepository
         public async Task<EnumResult> Update(int id, SpecialistRequestModel specialist)
         {
                 var existingSpecialist = await _context.Specialists
-                    .FirstOrDefaultAsync(s => s.SpecialistId == id);
+                        .FirstOrDefaultAsync(s => s.SpecialistId == id);
 
-                if (existingSpecialist == null)
-                {
-                        return EnumResult.Notfound;
-                }
-
+                if (existingSpecialist == null) return EnumResult.Notfound;
+               
                 existingSpecialist.Name = specialist.Name;
                 existingSpecialist.Description = specialist.Description;
 
