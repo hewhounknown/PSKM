@@ -26,7 +26,7 @@ public class PatientRepository : IPatientRepository
                 };
                 await _context.AddAsync(newPatient);
                 int result = await _context.SaveChangesAsync();
-                return result > 0? EnumResult.C : EnumResult.Fail;
+                return result > 0? EnumResult.Created : EnumResult.Fail;
         }
 
         public async Task<List<PatientModel>> GetAll()

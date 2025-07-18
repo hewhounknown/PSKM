@@ -4,7 +4,7 @@ namespace PSKM.Common.Mappings;
 
 
 // This class is responsible for mapping between Patient Models.
-public static class PatientMapper
+public static class Mapper
 {
         public static PatientModel Map(this PatientRequestModel request)
         {
