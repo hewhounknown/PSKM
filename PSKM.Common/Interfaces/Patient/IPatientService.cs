@@ -1,12 +1,7 @@
 ﻿using PSKM.Common.Enums;
 using PSKM.Common.Models.Patient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PSKM.Common.Interfaces;
+namespace PSKM.Common.Interfaces.Patient;
 
 public interface IPatientService
 {

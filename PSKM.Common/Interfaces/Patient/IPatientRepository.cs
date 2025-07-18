@@ -1,7 +1,7 @@
 ﻿using PSKM.Common.Enums;
 using PSKM.Common.Models.Patient;
 
-namespace PSKM.Common.Interfaces;
+namespace PSKM.Common.Interfaces.Patient;
 
 public interface IPatientRepository
 {

@@ -4,5 +4,6 @@ public enum EnumResult
 {
         Success,
         Fail,
-        Notfound
+        Notfound,
+        Created
 }

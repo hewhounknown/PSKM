@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSKM.Common.Enums;
-using PSKM.Common.Interfaces;
+using PSKM.Common.Interfaces.Patient;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.Data.Repositories;
@@ -26,7 +26,7 @@ public class PatientRepository : IPatientRepository
                 };
                 await _context.AddAsync(newPatient);
                 int result = await _context.SaveChangesAsync();
-                return result > 0? EnumResult.Success : EnumResult.Fail;
+                return result > 0? EnumResult.C : EnumResult.Fail;
         }
 
         public async Task<List<PatientModel>> GetAll()

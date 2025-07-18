@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PSKM.Common.Interfaces;
+using PSKM.Common.Interfaces.Patient;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.API.Controllers;

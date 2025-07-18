@@ -1,4 +1,4 @@
-﻿namespace PSKM.Common.Models.Doctor;
+﻿namespace PSKM.Common.Models.Specialist;
 
 public class SpecialistModel
 {

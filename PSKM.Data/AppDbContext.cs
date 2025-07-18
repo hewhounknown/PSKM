@@ -4,6 +4,7 @@ using PSKM.Common.Enums;
 using PSKM.Common.Models.Appointment;
 using PSKM.Common.Models.Doctor;
 using PSKM.Common.Models.Patient;
+using PSKM.Common.Models.Specialist;
 
 namespace PSKM.Data;
 
