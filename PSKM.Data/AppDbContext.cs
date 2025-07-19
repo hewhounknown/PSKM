@@ -65,18 +65,23 @@ public class AppDbContext : DbContext
                         builder.ToTable("Appointment");
                         builder.HasKey(x =>x.AppointmentId);
                         builder.Property(x => x.AppointmentDate).IsRequired();
+                        builder.Property(x => x.Token).IsRequired().HasMaxLength(30);
 
+                        builder.Property(x => x.CreatedAt)
+                        .HasDefaultValueSql("TIMEZONE('utc', NOW())")
+                        .ValueGeneratedOnAdd();
+                                
                         // convert enum type into sting for appointment status
                         var statusString = new EnumToStringConverter<EnumAppointmentStatus>();
-                        builder.Property(x => x.status)
+                        builder.Property(x => x.Status)
                         .HasConversion(statusString)
                         .HasDefaultValue(EnumAppointmentStatus.Pending);
 
-                        builder.HasOne<PatientModel>().WithMany()
+                        builder.HasOne(x => x.Patient).WithMany()
                         .HasForeignKey(x => x.PatientId)
                         .OnDelete(DeleteBehavior.Restrict).IsRequired(); // prevent delection of doctor if he/she has appointment; delete appointment first.
 
-                        builder.HasOne<DoctorModel>().WithMany()
+                        builder.HasOne(x => x.Doctor).WithMany()
                         .HasForeignKey(x =>x.DoctorId)
                         .OnDelete(DeleteBehavior.Restrict).IsRequired();
                 });

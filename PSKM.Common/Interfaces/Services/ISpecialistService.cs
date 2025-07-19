@@ -2,7 +2,7 @@
 using PSKM.Common.Models;
 using PSKM.Common.Models.Specialist;
 
-namespace PSKM.Common.Interfaces.Specialist;
+namespace PSKM.Common.Interfaces.Services;
 
 public interface ISpecialistService
 {

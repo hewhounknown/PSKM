@@ -7,11 +7,28 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PSKM.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class DoctorAppointmentCreate : Migration
+    public partial class ReCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Patient",
+                columns: table => new
+                {
+                    PatientId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PatientName = table.Column<string>(type: "text", nullable: false),
+                    DOB = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Gender = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
+                    Address = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patient", x => x.PatientId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Specialist",
                 columns: table => new
@@ -33,7 +50,7 @@ namespace PSKM.Data.Migrations
                     DoctorId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DoctorName = table.Column<string>(type: "text", nullable: false),
-                    SpecialistId = table.Column<int>(type: "integer", nullable: false),
+                    SpecialistId = table.Column<int>(type: "integer", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Phone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
                 },
@@ -54,11 +71,12 @@ namespace PSKM.Data.Migrations
                 {
                     AppointmentId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Token = table.Column<string>(type: "text", nullable: false),
+                    Token = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     AppointmentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PatientId = table.Column<int>(type: "integer", nullable: false),
                     DoctorId = table.Column<int>(type: "integer", nullable: false),
-                    status = table.Column<string>(type: "text", nullable: false, defaultValue: "Pending")
+                    Status = table.Column<string>(type: "text", nullable: false, defaultValue: "Pending"),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "TIMEZONE('utc', NOW())")
                 },
                 constraints: table =>
                 {
@@ -101,6 +119,9 @@ namespace PSKM.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Doctor");
+
+            migrationBuilder.DropTable(
+                name: "Patient");
 
             migrationBuilder.DropTable(
                 name: "Specialist");

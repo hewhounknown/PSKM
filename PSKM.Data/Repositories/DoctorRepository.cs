@@ -42,14 +42,7 @@ public class DoctorRepository : IDoctorRepository
         {
                 var doctors = await _context.Doctors
                         .Include(d => d.Specialist)
-                        .Select(d => new DoctorResponseModel
-                        {
-                                DoctorId = d.DoctorId,
-                                DoctorName = d.DoctorName,
-                                Specialist = d.Specialist.Name,
-                                Email = d.Email,
-                                Phone = d.Phone
-                        })
+                        .Select(d => d.Map()) // change DoctorModel to DoctorResponseModel
                         .ToListAsync();
 
                 if (doctors is null || doctors.Count is 0)
@@ -64,14 +57,7 @@ public class DoctorRepository : IDoctorRepository
         {
                 var doctor = await _context.Doctors
                         .Include(d => d.Specialist)
-                        .Select(d => new DoctorResponseModel
-                        {
-                                DoctorId = d.DoctorId,
-                                DoctorName = d.DoctorName,
-                                Specialist = d.Specialist.Name,
-                                Email = d.Email,
-                                Phone = d.Phone
-                        })
+                        .Select(d => d.Map()) // change DoctorModel to DoctorResponseModel
                         .FirstOrDefaultAsync(d => d.DoctorId == id);
 
                 if (doctor == null) return ResponseModel<DoctorResponseModel>.Fail(EnumResult.Notfound.ToString());

@@ -33,21 +33,27 @@ namespace PSKM.Data.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("TIMEZONE('utc', NOW())");
+
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("status")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
                         .HasDefaultValue("Pending");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.HasKey("AppointmentId");
 
@@ -147,17 +153,21 @@ namespace PSKM.Data.Migrations
 
             modelBuilder.Entity("PSKM.Common.Models.Appointment.AppointmentModel", b =>
                 {
-                    b.HasOne("PSKM.Common.Models.Doctor.DoctorModel", null)
+                    b.HasOne("PSKM.Common.Models.Doctor.DoctorModel", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PSKM.Common.Models.Patient.PatientModel", null)
+                    b.HasOne("PSKM.Common.Models.Patient.PatientModel", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("PSKM.Common.Models.Doctor.DoctorModel", b =>

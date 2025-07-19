@@ -20,6 +20,7 @@ public static class DependencyInjection
                 services.AddScoped<IPatientService, PatientService>();
                 services.AddScoped<ISpecialistService, SpecialistService>();
                 services.AddScoped<IDoctorService, DoctorService>();
+                services.AddScoped<IAppointmentService, AppointmentService>();
                 return services;
         }
 
@@ -28,6 +29,7 @@ public static class DependencyInjection
                 services.AddScoped<IPatientRepository, PatientRepository>();
                 services.AddScoped<ISpecialistRepository, SpecialistRepository>();
                 services.AddScoped<IDoctorRepository, DoctorRepository>();
+                services.AddScoped<IAppointmentRepository, AppointmentRepository>();
                 return services;
         }
 }
