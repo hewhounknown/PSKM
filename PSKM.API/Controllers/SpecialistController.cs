@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PSKM.Common.Interfaces.Specialist;
+using PSKM.Common.Interfaces.Services;
 using PSKM.Common.Models.Specialist;
 
 namespace PSKM.API.Controllers;

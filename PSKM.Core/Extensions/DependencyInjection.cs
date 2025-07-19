@@ -1,9 +1,8 @@
 ﻿using PSKM.Core.Services;
 using PSKM.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using PSKM.Common.Interfaces.Patient;
-using PSKM.Common.Interfaces.Specialist;
-using PSKM.Common.Interfaces.Doctor;
+using PSKM.Common.Interfaces.Repositories;
+using PSKM.Common.Interfaces.Services;
 
 namespace PSKM.Core.Extensions;
 

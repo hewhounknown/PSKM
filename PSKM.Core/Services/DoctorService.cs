@@ -1,5 +1,6 @@
 ﻿using PSKM.Common.Enums;
-using PSKM.Common.Interfaces.Doctor;
+using PSKM.Common.Interfaces.Repositories;
+using PSKM.Common.Interfaces.Services;
 using PSKM.Common.Models;
 using PSKM.Common.Models.Doctor;
 

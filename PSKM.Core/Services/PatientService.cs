@@ -1,5 +1,6 @@
 ﻿using PSKM.Common.Enums;
-using PSKM.Common.Interfaces.Patient;
+using PSKM.Common.Interfaces.Repositories;
+using PSKM.Common.Interfaces.Services;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.Core.Services;

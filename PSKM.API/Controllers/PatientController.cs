@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PSKM.Common.Interfaces.Patient;
+using PSKM.Common.Interfaces.Services;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.API.Controllers;
@@ -25,7 +25,6 @@ public class PatientController : Controller
                 }
                 catch (Exception ex)
                 {
-
                         return StatusCode(500, new { message = ex.Message });
                 }
 

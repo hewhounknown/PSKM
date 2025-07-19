@@ -2,7 +2,7 @@
 using PSKM.Common.Models;
 using PSKM.Common.Models.Doctor;
 
-namespace PSKM.Common.Interfaces.Doctor;
+namespace PSKM.Common.Interfaces.Repositories;
 
 public interface IDoctorRepository
 {

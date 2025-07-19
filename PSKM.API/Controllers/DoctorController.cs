@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PSKM.Common.Interfaces.Doctor;
+using PSKM.Common.Interfaces.Services;
 using PSKM.Common.Models.Doctor;
 
 namespace PSKM.API.Controllers;

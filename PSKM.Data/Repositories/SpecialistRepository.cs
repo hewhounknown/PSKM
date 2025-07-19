@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSKM.Common.Enums;
-using PSKM.Common.Interfaces.Specialist;
+using PSKM.Common.Interfaces.Repositories;
 using PSKM.Common.Models;
 using PSKM.Common.Models.Specialist;
 

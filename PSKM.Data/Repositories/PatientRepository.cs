@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSKM.Common.Enums;
-using PSKM.Common.Interfaces.Patient;
+using PSKM.Common.Interfaces.Repositories;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.Data.Repositories;
