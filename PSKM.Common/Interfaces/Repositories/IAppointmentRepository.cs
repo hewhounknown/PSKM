@@ -11,4 +11,7 @@ public interface IAppointmentRepository
         Task<ResponseModel<AppointmentResponseModel>> GetById(int id);
         Task<EnumResult> Update(int id, AppointmentUpdateRequestModel appointment);
         Task<EnumResult> Delete(int id);
+
+        Task<ResponseModel<List<AppointmentResponseModel>>> GetByDoctorId(int doctorId);
+        Task<ResponseModel<List<AppointmentResponseModel>>> GetByPatientId(int patientId);
 }

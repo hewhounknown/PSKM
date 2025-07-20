@@ -104,4 +104,36 @@ public class AppointmentController : Controller
                         return StatusCode(500, new {message = ex.Message});
                 }
         }
+
+        [HttpGet("doctor/{doctorId}")]
+        public async Task<IActionResult> GetAppointmentsByDoctorId(int doctorId)
+        {
+                try
+                {
+                        var result = await _appointmentService.GetAppointmentsByDoctorId(doctorId);
+                        if (result.Data is null || result.Data.Count == 0)
+                                return NotFound(new {message = "No appointments found for this doctor."});
+                        return Ok(result);
+                }
+                catch (Exception ex)
+                {
+                        return StatusCode(500, new {message = ex.Message});
+                }
+        }
+
+        [HttpGet("patient/{patientId}")]
+        public async Task<IActionResult> GetAppointmentsByPatientId(int patientId)
+        {
+                try
+                {
+                        var result = await _appointmentService.GetAppointmentsByPatientId(patientId);
+                        if (result.Data is null || result.Data.Count == 0)
+                                return NotFound(new {message = "No appointments found for this patient."});
+                        return Ok(result);
+                }
+                catch (Exception ex)
+                {
+                        return StatusCode(500, new {message = ex.Message});
+                }
+        }
 }

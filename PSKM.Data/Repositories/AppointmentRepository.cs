@@ -46,11 +46,7 @@ public class AppointmentRepository : IAppointmentRepository
                         .Select(a => a.Map()) // change AppointmentModel to AppointmentResponseModel
                         .ToListAsync();
 
-                if (appointments is null || appointments.Count == 0)
-                        return ResponseModel<List<AppointmentResponseModel>>
-                                .Fail(EnumResult.Notfound.ToString());
-
-                return ResponseModel<List<AppointmentResponseModel>>.Success(appointments, EnumResult.Success.ToString());
+                return GenerateListResponse(appointments);
         }
 
         public async Task<ResponseModel<AppointmentResponseModel>> GetById(int id)
@@ -60,7 +56,7 @@ public class AppointmentRepository : IAppointmentRepository
                         .Include(a => a.Patient)
                         .Select(a => a.Map()) // change AppointmentModel to AppointmentResponseModel
                         .FirstOrDefaultAsync(a => a.AppointmentId == id);
-                if (appointment == null) 
+                if (appointment == null)
                         return ResponseModel<AppointmentResponseModel>
                                 .Fail(EnumResult.Notfound.ToString());
 
@@ -84,5 +80,39 @@ public class AppointmentRepository : IAppointmentRepository
                 int result = await _context.SaveChangesAsync();
 
                 return result > 0 ? EnumResult.Success : EnumResult.Fail;
+        }
+
+        public async Task<ResponseModel<List<AppointmentResponseModel>>> GetByDoctorId(int doctorId)
+        {
+                var appointments = await _context.Appointments
+                        .Include(a => a.Doctor)
+                        .Include(a => a.Patient)
+                        .Where(a => a.DoctorId == doctorId)
+                        .Select(a => a.Map()).ToListAsync();
+
+                return GenerateListResponse(appointments);
+        }
+
+        public async Task<ResponseModel<List<AppointmentResponseModel>>> GetByPatientId(int patientId)
+        {
+                var appointments = await _context.Appointments
+                        .Include(a => a.Doctor)
+                        .Include(a => a.Patient)
+                        .Where(a => a.PatientId == patientId)
+                        .Select(a => a.Map()).ToListAsync();
+
+                return GenerateListResponse(appointments);
+        }
+
+
+        //help to generate response model for list of appointments
+        private ResponseModel<List<AppointmentResponseModel>> GenerateListResponse(List<AppointmentResponseModel> appointments)
+        {
+                if (appointments is null || appointments.Count == 0)
+                        return ResponseModel<List<AppointmentResponseModel>>
+                                .Fail(EnumResult.Notfound.ToString());
+
+                return ResponseModel<List<AppointmentResponseModel>>
+                        .Success(appointments, EnumResult.Success.ToString());
         }
 }

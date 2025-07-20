@@ -11,5 +11,8 @@ namespace PSKM.Common.Interfaces.Services
                 Task<ResponseModel<AppointmentResponseModel>> GetAppointmentById(int id);
                 Task<EnumResult> UpdateAppointment(int id, AppointmentUpdateRequestModel appointment);
                 Task<EnumResult> DeleteAppointment(int id);
+
+                Task<ResponseModel<List<AppointmentResponseModel>>> GetAppointmentsByDoctorId(int doctorId);
+                Task<ResponseModel<List<AppointmentResponseModel>>> GetAppointmentsByPatientId(int patientId);
         }
 }
