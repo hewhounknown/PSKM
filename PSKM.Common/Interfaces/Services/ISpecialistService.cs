@@ -6,8 +6,8 @@ namespace PSKM.Common.Interfaces.Services;
 
 public interface ISpecialistService
 {
-        Task<EnumResult> AddSpecialist(SpecialistRequestModel specialist);
+        Task<ResponseModel<object>> AddSpecialist(SpecialistRequestModel specialist);
         Task<ResponseModel<List<SpecialistModel>>> GetAllSpecialists();
-        Task<EnumResult> EditSpecialist(int id, SpecialistRequestModel specialist);
-        Task<EnumResult> DeleteSpecialist(int id);
+        Task<ResponseModel<object>> EditSpecialist(int id, SpecialistRequestModel specialist);
+        Task<ResponseModel<object>> DeleteSpecialist(int id);
 }

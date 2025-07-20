@@ -1,13 +1,14 @@
 ﻿using PSKM.Common.Enums;
+using PSKM.Common.Models;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.Common.Interfaces.Repositories;
 
 public interface IPatientRepository
 {
-        Task<EnumResult> Add(PatientRequestModel patient);
-        Task<List<PatientModel>> GetAll();
-        Task<PatientResponseModel> GetById(int id);
-        Task<EnumResult> Update(PatientRequestModel patient);
-        Task<EnumResult> Delete(int id);
+        Task<ResponseModel<object>> Add(PatientRequestModel patient);
+        Task<ResponseModel<List<PatientModel>>> GetAll();
+        Task<ResponseModel<PatientModel>> GetById(int id);
+        Task<ResponseModel<object>> Update(PatientRequestModel patient);
+        Task<ResponseModel<object>> Delete(int id);
 }

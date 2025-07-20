@@ -15,27 +15,35 @@ public class DoctorRepository : IDoctorRepository
         {
                 _context = context;
         }
-        public async Task<EnumResult> Add(DoctorRequestModel doctor)
+        public async Task<ResponseModel<object>> Add(DoctorRequestModel doctor)
         {
                 var newDoctor = doctor.Map();
 
                 await _context.AddAsync(newDoctor);
                 int result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Created : EnumResult.Fail;
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.OK, "new doctor added.")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "fail to add doctor.");
         }
 
-        public async Task<EnumResult> Delete(int id)
+        public async Task<ResponseModel<object>> Delete(int id)
         {
                 var doctor = await _context.Doctors.FindAsync(id);
 
-                if (doctor == null) return EnumResult.Notfound;
+                if (doctor is null) 
+                        return ResponseModel<object>
+                                .Fail(EnumResponseCode.Notfound, "No doctor found.");
          
 
                 _context.Doctors.Remove(doctor);
                 int result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Success : EnumResult.Fail;
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.NoContent, "deleted success")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "fail to delete doctor.");
         }
 
         public async Task<ResponseModel<List<DoctorResponseModel>>> GetAll()
@@ -47,30 +55,31 @@ public class DoctorRepository : IDoctorRepository
 
                 if (doctors is null || doctors.Count is 0)
                 {
-                      return ResponseModel<List<DoctorResponseModel>>.Fail(EnumResult.Notfound.ToString());
+                      return ResponseModel<List<DoctorResponseModel>>.Fail(EnumResponseCode.Notfound.ToString());
                 }
                 
-                return ResponseModel<List<DoctorResponseModel>>.Success(doctors, EnumResult.Success.ToString());
+                return ResponseModel<List<DoctorResponseModel>>.Success(doctors, EnumResponseCode.OK);
         }
 
         public async Task<ResponseModel<DoctorResponseModel>> GetById(int id)
         {
                 var doctor = await _context.Doctors
                         .Include(d => d.Specialist)
-                        .Select(d => d.Map()) // change DoctorModel to DoctorResponseModel
                         .FirstOrDefaultAsync(d => d.DoctorId == id);
 
-                if (doctor == null) return ResponseModel<DoctorResponseModel>.Fail(EnumResult.Notfound.ToString());
+                if (doctor is null) return ResponseModel<DoctorResponseModel>.Fail(EnumResponseCode.Notfound.ToString());
 
-                return ResponseModel<DoctorResponseModel>.Success(doctor);
+                return ResponseModel<DoctorResponseModel>.Success(doctor.Map());
         }
 
-        public async Task<EnumResult> Update(int id, DoctorRequestModel doctor)
+        public async Task<ResponseModel<object>> Update(int id, DoctorRequestModel doctor)
         {
                 var existingDoctor = await _context.Doctors
                         .FirstOrDefaultAsync(d =>d.DoctorId == id);
 
-                if(existingDoctor == null) return EnumResult.Notfound;
+                if(existingDoctor is null) 
+                       return ResponseModel<object>
+                                .Fail(EnumResponseCode.Notfound, "No doctor found.");
 
                 existingDoctor.DoctorName = doctor.DoctorName;
                 existingDoctor.SpecialistId = doctor.SpecialistId;
@@ -80,6 +89,9 @@ public class DoctorRepository : IDoctorRepository
                 _context.Doctors.Update(existingDoctor);
                 var result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Success : EnumResult.Notfound;
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.NoContent, "updated success")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "fail to update doctor.");
         }
 }

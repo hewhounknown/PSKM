@@ -16,7 +16,7 @@ public class SpecialistRepository : ISpecialistRepository
                 _context = context;
         }      
 
-        public async Task<EnumResult> Add(SpecialistRequestModel specialist)
+        public async Task<ResponseModel<object>> Add(SpecialistRequestModel specialist)
         {
                 
                 var newSpecialist = new SpecialistModel()
@@ -28,19 +28,27 @@ public class SpecialistRepository : ISpecialistRepository
                 await _context.AddAsync(newSpecialist);
                 int result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Created : EnumResult.Fail;
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.Created, "new specialist added.")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "fail to add new specialist.");
         }
 
-        public async Task<EnumResult> Delete(int id)
+        public async Task<ResponseModel<object>> Delete(int id)
         {
                 var specialist = await _context.Specialists.FirstOrDefaultAsync(s => s.SpecialistId == id);
 
-                if (specialist == null) return EnumResult.Notfound;
+                if (specialist is null) 
+                        return ResponseModel<object>
+                                .Fail(EnumResponseCode.Notfound, "no specialist found");
                 
                 _context.Specialists.Remove(specialist);
                 int result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Success : EnumResult.Fail;
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.NoContent, "deleted success.")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "Fail to delete specialist.");
         }
 
         public async Task<ResponseModel<List<SpecialistModel>>> GetAll()
@@ -48,19 +56,21 @@ public class SpecialistRepository : ISpecialistRepository
                 var specialists = await _context.Specialists.ToListAsync();
 
                 if (specialists is null || specialists.Count is 0)
-                {
-                        return ResponseModel<List<SpecialistModel>>.Fail(EnumResult.Notfound.ToString());
-                }
+                        return ResponseModel<List<SpecialistModel>>
+                                .Fail(EnumResponseCode.Notfound.ToString());
+                
 
-                return ResponseModel<List<SpecialistModel>>.Success(specialists, EnumResult.Success.ToString());
+                return ResponseModel<List<SpecialistModel>>
+                        .Success(specialists, EnumResponseCode.OK);
         }
 
-        public async Task<EnumResult> Update(int id, SpecialistRequestModel specialist)
+        public async Task<ResponseModel<object>> Update(int id, SpecialistRequestModel specialist)
         {
                 var existingSpecialist = await _context.Specialists
                         .FirstOrDefaultAsync(s => s.SpecialistId == id);
 
-                if (existingSpecialist == null) return EnumResult.Notfound;
+                if (existingSpecialist is null) 
+                        return ResponseModel<object>.Fail(EnumResponseCode.Notfound, "no specialist found");
                
                 existingSpecialist.Name = specialist.Name;
                 existingSpecialist.Description = specialist.Description;
@@ -68,6 +78,9 @@ public class SpecialistRepository : ISpecialistRepository
                 _context.Specialists.Update(existingSpecialist);
                 int result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Success : EnumResult.Fail;
+               return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.NoContent, "update success.")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "Fail to update specialist.");
         }
 }

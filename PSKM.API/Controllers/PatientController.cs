@@ -6,7 +6,7 @@ namespace PSKM.API.Controllers;
 
 [Route("api/v1/patients")]
 [ApiController]
-public class PatientController : Controller
+public class PatientController : BaseController
 {
         private readonly IPatientService _patientService;
 
@@ -18,46 +18,20 @@ public class PatientController : Controller
         [HttpPost]
         public async Task<IActionResult> RegisterPatient(PatientRequestModel patient)
         {
-                try
-                {
-                        var result = await _patientService.RegisterPatient(patient);
-                        return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new { message = ex.Message });
-                }
+                return await HandleRequest(() => _patientService.RegisterPatient(patient));
 
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-                try
-                {
-                        var patientList = await _patientService.ViewAllPatients();
-                        return Ok(patientList);
-                }
-                catch (Exception ex)
-                {
-
-                        return StatusCode(500, new { message = ex.Message });
-                }
+               return await HandleRequest(() => _patientService.ViewAllPatients());
 
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-                try
-                {
-                        var patient = await _patientService.ViewPatient(id);
-                        return Ok(patient);
-                }
-                catch (Exception ex)
-                {
-
-                        return StatusCode(500, new { message = ex.Message });
-                }
+                return await HandleRequest(() => _patientService.ViewPatient(id));
         }
 }

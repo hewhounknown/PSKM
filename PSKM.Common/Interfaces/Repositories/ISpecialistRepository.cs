@@ -6,8 +6,8 @@ namespace PSKM.Common.Interfaces.Repositories;
 
 public interface ISpecialistRepository
 {
-        Task<EnumResult> Add(SpecialistRequestModel specialist);
+        Task<ResponseModel<object>> Add(SpecialistRequestModel specialist);
         Task<ResponseModel<List<SpecialistModel>>> GetAll();
-        Task<EnumResult> Update(int id, SpecialistRequestModel specialist);
-        Task<EnumResult> Delete(int id);
+        Task<ResponseModel<object>> Update(int id, SpecialistRequestModel specialist);
+        Task<ResponseModel<object>> Delete(int id);
 }

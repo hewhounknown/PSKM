@@ -16,26 +16,34 @@ public class AppointmentRepository : IAppointmentRepository
                 _context = context;
         }
 
-        public async Task<EnumResult> Add(AppointmentRequestModel appointment)
+        public async Task<ResponseModel<object>> Add(AppointmentRequestModel appointment)
         {
                 var newAppointment = appointment.Map();
 
                 await _context.AddAsync(newAppointment);
                 int result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Created : EnumResult.Fail;
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.Created, "New appointment created.")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "Fail to create new appointment.");
         }
 
-        public async Task<EnumResult> Delete(int id)
+        public async Task<ResponseModel<object>> Delete(int id)
         {
                 var appointment = await _context.Appointments.FindAsync(id);
 
-                if (appointment == null) return EnumResult.Notfound;
+                if (appointment is null) 
+                        return ResponseModel<object>
+                                .Fail(EnumResponseCode.Notfound, "No appointment found.");
 
                 _context.Appointments.Remove(appointment);
                 int result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Success : EnumResult.Fail;
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.NoContent, "appointment deleted")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "Fail to delete appointment.");
         }
 
         public async Task<ResponseModel<List<AppointmentResponseModel>>> GetAll()
@@ -54,22 +62,25 @@ public class AppointmentRepository : IAppointmentRepository
                 var appointment = await _context.Appointments
                         .Include(a => a.Doctor)
                         .Include(a => a.Patient)
-                        .Select(a => a.Map()) // change AppointmentModel to AppointmentResponseModel
+                         // change AppointmentModel to AppointmentResponseModel
                         .FirstOrDefaultAsync(a => a.AppointmentId == id);
-                if (appointment == null)
+                if (appointment is null)
                         return ResponseModel<AppointmentResponseModel>
-                                .Fail(EnumResult.Notfound.ToString());
+                                .Fail(EnumResponseCode.Notfound.ToString());
 
+                var responseAppointment = appointment.Map();
                 return ResponseModel<AppointmentResponseModel>
-                        .Success(appointment, EnumResult.Success.ToString());
+                        .Success(responseAppointment, EnumResponseCode.OK);
         }
 
-        public async Task<EnumResult> Update(int id, AppointmentUpdateRequestModel appointment)
+        public async Task<ResponseModel<object>> Update(int id, AppointmentUpdateRequestModel appointment)
         {
                 var existingAppointment = await _context.Appointments
                         .FirstOrDefaultAsync(a => a.AppointmentId == id);
 
-                if (existingAppointment is null) return EnumResult.Notfound;
+                if (existingAppointment is null) 
+                        return ResponseModel<object>
+                                .Fail(EnumResponseCode.Notfound, "No appointemtn found.");
 
                 existingAppointment.AppointmentDate = appointment.AppointmentDate;
                 existingAppointment.DoctorId = appointment.DoctorId;
@@ -79,9 +90,12 @@ public class AppointmentRepository : IAppointmentRepository
                 _context.Appointments.Update(existingAppointment);
                 int result = await _context.SaveChangesAsync();
 
-                return result > 0 ? EnumResult.Success : EnumResult.Fail;
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.NoContent, "updated success.")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "Fail to edit appointment.");
         }
-
+        
         public async Task<ResponseModel<List<AppointmentResponseModel>>> GetByDoctorId(int doctorId)
         {
                 var appointments = await _context.Appointments
@@ -108,11 +122,11 @@ public class AppointmentRepository : IAppointmentRepository
         //help to generate response model for list of appointments
         private ResponseModel<List<AppointmentResponseModel>> GenerateListResponse(List<AppointmentResponseModel> appointments)
         {
-                if (appointments is null || appointments.Count == 0)
+                if (appointments is null || appointments.Count is 0)
                         return ResponseModel<List<AppointmentResponseModel>>
-                                .Fail(EnumResult.Notfound.ToString());
+                                .Fail(EnumResponseCode.Notfound, "No appointments found.");
 
                 return ResponseModel<List<AppointmentResponseModel>>
-                        .Success(appointments, EnumResult.Success.ToString());
+                        .Success(appointments, EnumResponseCode.OK);
         }
 }

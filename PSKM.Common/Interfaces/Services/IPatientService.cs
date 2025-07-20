@@ -1,11 +1,12 @@
 ﻿using PSKM.Common.Enums;
+using PSKM.Common.Models;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.Common.Interfaces.Services;
 
 public interface IPatientService
 {
-        Task<EnumResult> RegisterPatient(PatientRequestModel patient);
-        Task<List<PatientModel>> ViewAllPatients();
-        Task<PatientResponseModel> ViewPatient(int patientId);
+        Task<ResponseModel<object>> RegisterPatient(PatientRequestModel patient);
+        Task<ResponseModel<List<PatientModel>>> ViewAllPatients();
+        Task<ResponseModel<PatientModel>> ViewPatient(int patientId);
 }

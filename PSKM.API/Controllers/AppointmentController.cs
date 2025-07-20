@@ -5,9 +5,9 @@ using PSKM.Common.Models.Appointment;
 
 namespace PSKM.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/v1/appointments")]
 [ApiController]
-public class AppointmentController : Controller
+public class AppointmentController : BaseController
 {
         private readonly IAppointmentService _appointmentService;
 
@@ -19,121 +19,42 @@ public class AppointmentController : Controller
         [HttpPost]
         public async Task<IActionResult> AddAppointment(AppointmentRequestModel appointment)
         {
-                try
-                {
-                        var result = await _appointmentService.AddAppointment(appointment);
-                        if (result == EnumResult.Created)
-                                return StatusCode(201, new {message = "Appointment created successfully."});
-                        else if (result == EnumResult.Fail)
-                                return BadRequest(new {message = "Failed to create appointment."});
-                        else
-                                return NotFound(new {message = "Appointment not found."});
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new {message = ex.Message});
-                }
+                return await HandleRequest(() => _appointmentService.AddAppointment(appointment));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAppointments()
         {
-                try
-                {
-                        var result = await _appointmentService.GetAllAppointments();
-                        if (result.Data is null || result.Data.Count == 0)
-                                return NotFound(new {message = "No appointments found."});
-                        return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new {message = ex.Message});
-                }
+                return await HandleRequest(() => _appointmentService.GetAllAppointments());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAppointmentById(int id)
         {
-                try
-                {
-                        var result = await _appointmentService.GetAppointmentById(id);
-                        if (result.Data is null)
-                                return NotFound(new {message = "Appointment not found."});
-                        return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new {message = ex.Message});
-                }
+                return await HandleRequest(() => _appointmentService.GetAppointmentById(id));
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAppointment(int id, AppointmentUpdateRequestModel appointment)
         {
-                try
-                {
-                        var result = await _appointmentService.UpdateAppointment(id, appointment);
-                        if (result == EnumResult.Success)
-                                return Ok(new {message = "Appointment updated successfully."});
-                        else if (result == EnumResult.Fail)
-                                return BadRequest(new {message = "Failed to update appointment."});
-                        else
-                                return NotFound(new {message = "Appointment not found."});
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new {message = ex.Message});
-                }
+                return await HandleRequest(() => _appointmentService.UpdateAppointment(id, appointment));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
         {
-                try
-                {
-                        var result = await _appointmentService.DeleteAppointment(id);
-                        if (result == EnumResult.Success)
-                                return Ok(new {message = "Appointment deleted successfully."});
-                        else if (result == EnumResult.Fail)
-                                return BadRequest(new {message = "Failed to delete appointment."});
-                        else
-                                return NotFound(new {message = "Appointment not found."});
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new {message = ex.Message});
-                }
+                return await HandleRequest(() => _appointmentService.DeleteAppointment(id));
         }
 
         [HttpGet("doctor/{doctorId}")]
         public async Task<IActionResult> GetAppointmentsByDoctorId(int doctorId)
         {
-                try
-                {
-                        var result = await _appointmentService.GetAppointmentsByDoctorId(doctorId);
-                        if (result.Data is null || result.Data.Count == 0)
-                                return NotFound(new {message = "No appointments found for this doctor."});
-                        return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new {message = ex.Message});
-                }
+                return await HandleRequest(() => _appointmentService.GetAppointmentsByDoctorId(doctorId));
         }
 
         [HttpGet("patient/{patientId}")]
         public async Task<IActionResult> GetAppointmentsByPatientId(int patientId)
         {
-                try
-                {
-                        var result = await _appointmentService.GetAppointmentsByPatientId(patientId);
-                        if (result.Data is null || result.Data.Count == 0)
-                                return NotFound(new {message = "No appointments found for this patient."});
-                        return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new {message = ex.Message});
-                }
+                return await HandleRequest(() => _appointmentService.GetAppointmentsByPatientId(patientId));
         }
 }

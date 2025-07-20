@@ -15,17 +15,17 @@ public class SpecialistService : ISpecialistService
                 _specialistRepository = specialistRepository;
         }       
 
-        public async Task<EnumResult> AddSpecialist(SpecialistRequestModel specialist)
+        public async Task<ResponseModel<object>> AddSpecialist(SpecialistRequestModel specialist)
         {
                 return await _specialistRepository.Add(specialist);
         }
 
-        public async Task<EnumResult> DeleteSpecialist(int id)
+        public async Task<ResponseModel<object>> DeleteSpecialist(int id)
         {
                 return await _specialistRepository.Delete(id);
         }
 
-        public async Task<EnumResult> EditSpecialist(int id, SpecialistRequestModel specialist)
+        public async Task<ResponseModel<object>> EditSpecialist(int id, SpecialistRequestModel specialist)
         {
                 return await _specialistRepository.Update(id, specialist);
         }

@@ -15,12 +15,12 @@ public class DoctorService : IDoctorService
                 _doctorRepository = doctorRepository;
         }
 
-        public async Task<EnumResult> AddDoctor(DoctorRequestModel model)
+        public async Task<ResponseModel<object>> AddDoctor(DoctorRequestModel model)
         {
                 return await _doctorRepository.Add(model);
         }
 
-        public async Task<EnumResult> DeleteDoctor(int id)
+        public async Task<ResponseModel<object>> DeleteDoctor(int id)
         {
                 return await _doctorRepository.Delete(id);
         }
@@ -35,7 +35,7 @@ public class DoctorService : IDoctorService
                 return await _doctorRepository.GetById(id);
         }
 
-        public async Task<EnumResult> UpdateDoctor(int id, DoctorRequestModel model)
+        public async Task<ResponseModel<object>> UpdateDoctor(int id, DoctorRequestModel model)
         {
                 return await _doctorRepository.Update(id, model);
         }

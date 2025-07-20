@@ -15,12 +15,12 @@ public class AppointmentService : IAppointmentService
                 _appointmentRepository = appointmentRepository;
         }
 
-        public async Task<EnumResult> AddAppointment(AppointmentRequestModel appointment)
+        public async Task<ResponseModel<object>> AddAppointment(AppointmentRequestModel appointment)
         {
                 return await _appointmentRepository.Add(appointment);
         }
 
-        public async Task<EnumResult> DeleteAppointment(int id)
+        public async Task<ResponseModel<object>> DeleteAppointment(int id)
         {
                 return await _appointmentRepository.Delete(id);
         }
@@ -35,7 +35,7 @@ public class AppointmentService : IAppointmentService
                 return await _appointmentRepository.GetById(id);
         }
 
-        public Task<EnumResult> UpdateAppointment(int id, AppointmentUpdateRequestModel appointment)
+        public Task<ResponseModel<object>> UpdateAppointment(int id, AppointmentUpdateRequestModel appointment)
         {
                 return _appointmentRepository.Update(id, appointment);
         }

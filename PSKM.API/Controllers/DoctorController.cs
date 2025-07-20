@@ -6,7 +6,7 @@ namespace PSKM.API.Controllers;
 
 [Route("api/v1/doctors")]
 [ApiController]
-public class DoctorController : Controller
+public class DoctorController : BaseController
 {
         private readonly IDoctorService _doctorService;
 
@@ -18,70 +18,30 @@ public class DoctorController : Controller
         [HttpPost]
         public async Task<IActionResult> AddDoctor(DoctorRequestModel request)
         {
-                try
-                {
-                        var result = await _doctorService.AddDoctor(request);
-                        return Ok(result.ToString());
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new { message = ex.Message });
-                }
+                return await HandleRequest(() => _doctorService.AddDoctor(request));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllDoctors()
         {
-                try
-                {
-                        var result = await _doctorService.GetAllDoctors();
-                        return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new { message = ex.Message });
-                }
+                return await HandleRequest(() => _doctorService.GetAllDoctors());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDoctorById(int id)
         {
-                try
-                {
-                        var result = await _doctorService.GetDoctorById(id);
-                        return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new { message = ex.Message });
-                }
+                return await HandleRequest(() => _doctorService.GetDoctorById(id));
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDoctor(int id, DoctorRequestModel request)
         {
-                try
-                {
-                        var result = await _doctorService.UpdateDoctor(id, request);
-                        return Ok(result.ToString());
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new { message = ex.Message });
-                }
+                return await HandleRequest(() => _doctorService.UpdateDoctor(id, request));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDoctor(int id)
         {
-                try
-                {
-                        var result = await _doctorService.DeleteDoctor(id);
-                        return Ok(result.ToString());
-                }
-                catch (Exception ex)
-                {
-                        return StatusCode(500, new { message = ex.Message });
-                }
+                return await HandleRequest(() => _doctorService.DeleteDoctor(id));
         }
 }

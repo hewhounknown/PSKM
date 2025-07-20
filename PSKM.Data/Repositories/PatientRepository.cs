@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSKM.Common.Enums;
 using PSKM.Common.Interfaces.Repositories;
+using PSKM.Common.Models;
+using PSKM.Common.Models.Appointment;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.Data.Repositories;
@@ -14,7 +16,7 @@ public class PatientRepository : IPatientRepository
                 _context = context;
         }
 
-        public async Task<EnumResult> Add(PatientRequestModel patient)
+        public async Task<ResponseModel<object>> Add(PatientRequestModel patient)
         {
                 var newPatient = new PatientModel
                 {
@@ -24,43 +26,46 @@ public class PatientRepository : IPatientRepository
                         Gender = patient.Gender,
                         Address = patient.Address,
                 };
+
                 await _context.AddAsync(newPatient);
                 int result = await _context.SaveChangesAsync();
-                return result > 0? EnumResult.Created : EnumResult.Fail;
+
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.OK, "New patient added")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.BadRequest, "Fail to add patient");
         }
 
-        public async Task<List<PatientModel>> GetAll()
+        public async Task<ResponseModel<List<PatientModel>>> GetAll()
         {
-                return await _context.Patients.ToListAsync();
+                var patients = await _context.Patients.ToListAsync();
+
+                if (patients is null || patients.Count == 0)
+                        return ResponseModel<List<PatientModel>>
+                                .Fail(EnumResponseCode.Notfound, "No patients found.");
+
+                return ResponseModel<List<PatientModel>>
+                        .Success(patients, EnumResponseCode.OK);
         }
 
-        public async Task<PatientResponseModel> GetById(int id)
+        public async Task<ResponseModel<PatientModel>> GetById(int id)
         {
                 var patient = await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == id);
 
-                if (patient == null) return new PatientResponseModel 
-                { 
-                        IsSuccess = false,
-                        Message = EnumResult.Notfound.ToString(),
-                        Patient = null
-                };
+                if (patient is null)
+                        return ResponseModel<PatientModel>
+                                .Fail(EnumResponseCode.Notfound, "No patient found.");
 
-                var p = new PatientResponseModel
-                {
-                        IsSuccess = true,
-                        Message = EnumResult.Success.ToString(),
-                        Patient = patient
-                };
-
-                return p;
+                return ResponseModel<PatientModel>
+                        .Success(patient, EnumResponseCode.OK);
         }
 
-        Task<EnumResult> IPatientRepository.Delete(int id)
+        Task<ResponseModel<object>> IPatientRepository.Delete(int id)
         {
                 throw new NotImplementedException();
         }
 
-        Task<EnumResult> IPatientRepository.Update(PatientRequestModel patient)
+        Task<ResponseModel<object>> IPatientRepository.Update(PatientRequestModel patient)
         {
                 throw new NotImplementedException();
         }

@@ -6,9 +6,9 @@ namespace PSKM.Common.Interfaces.Repositories;
 
 public interface IDoctorRepository
 {
-        Task<EnumResult> Add(DoctorRequestModel doctor);
+        Task<ResponseModel<object>> Add(DoctorRequestModel doctor);
         Task<ResponseModel<List<DoctorResponseModel>>> GetAll();
         Task<ResponseModel<DoctorResponseModel>> GetById(int id);
-        Task<EnumResult> Update(int id, DoctorRequestModel doctor);
-        Task<EnumResult> Delete(int id);
+        Task<ResponseModel<object>> Update(int id, DoctorRequestModel doctor);
+        Task<ResponseModel<object>> Delete(int id);
 }
