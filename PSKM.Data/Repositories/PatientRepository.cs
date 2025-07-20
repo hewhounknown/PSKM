@@ -33,7 +33,7 @@ public class PatientRepository : IPatientRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.OK, "New patient added")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "Fail to add patient");
+                        .Fail(EnumResponseCode.ServerError, "Fail to add patient");
         }
 
         public async Task<ResponseModel<List<PatientModel>>> GetAll()

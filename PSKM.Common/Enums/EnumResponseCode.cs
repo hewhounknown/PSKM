@@ -7,4 +7,5 @@ public enum EnumResponseCode
         NoContent=204,
         BadRequest=400,
         Notfound=404,
+        ServerError=500,
 }

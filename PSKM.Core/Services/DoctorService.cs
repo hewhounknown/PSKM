@@ -1,23 +1,34 @@
-﻿using PSKM.Common.Enums;
+﻿using FluentValidation;
+using PSKM.Common.Enums;
 using PSKM.Common.Interfaces.Repositories;
 using PSKM.Common.Interfaces.Services;
 using PSKM.Common.Models;
 using PSKM.Common.Models.Doctor;
+using PSKM.Common.Utils;
 
 namespace PSKM.Core.Services;
 
 public class DoctorService : IDoctorService
 {
         private readonly IDoctorRepository _doctorRepository;
+        private readonly IValidator<DoctorRequestModel> _docValidator;
 
-        public DoctorService(IDoctorRepository doctorRepository)
+        public DoctorService(
+                IDoctorRepository doctorRepository, 
+                IValidator<DoctorRequestModel> docValidator
+                )
         {
                 _doctorRepository = doctorRepository;
+                _docValidator = docValidator;
         }
 
-        public async Task<ResponseModel<object>> AddDoctor(DoctorRequestModel model)
+        public async Task<ResponseModel<object>> AddDoctor(DoctorRequestModel doctor)
         {
-                return await _doctorRepository.Add(model);
+                var validator = await _docValidator.ValidateAsync(doctor);
+                if (!validator.IsValid)
+                        return ValidationHelper.FormatErrors(validator.Errors);
+                
+                return await _doctorRepository.Add(doctor);
         }
 
         public async Task<ResponseModel<object>> DeleteDoctor(int id)

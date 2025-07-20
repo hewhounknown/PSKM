@@ -25,7 +25,7 @@ public class DoctorRepository : IDoctorRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.OK, "new doctor added.")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "fail to add doctor.");
+                        .Fail(EnumResponseCode.ServerError, "fail to add doctor.");
         }
 
         public async Task<ResponseModel<object>> Delete(int id)
@@ -43,7 +43,7 @@ public class DoctorRepository : IDoctorRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.NoContent, "deleted success")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "fail to delete doctor.");
+                        .Fail(EnumResponseCode.ServerError, "fail to delete doctor.");
         }
 
         public async Task<ResponseModel<List<DoctorResponseModel>>> GetAll()
@@ -92,6 +92,6 @@ public class DoctorRepository : IDoctorRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.NoContent, "updated success")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "fail to update doctor.");
+                        .Fail(EnumResponseCode.ServerError, "fail to update doctor.");
         }
 }

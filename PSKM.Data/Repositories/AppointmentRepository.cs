@@ -26,7 +26,7 @@ public class AppointmentRepository : IAppointmentRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.Created, "New appointment created.")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "Fail to create new appointment.");
+                        .Fail(EnumResponseCode.ServerError, "Fail to create new appointment.");
         }
 
         public async Task<ResponseModel<object>> Delete(int id)
@@ -43,7 +43,7 @@ public class AppointmentRepository : IAppointmentRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.NoContent, "appointment deleted")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "Fail to delete appointment.");
+                        .Fail(EnumResponseCode.ServerError, "Fail to delete appointment.");
         }
 
         public async Task<ResponseModel<List<AppointmentResponseModel>>> GetAll()
@@ -62,8 +62,8 @@ public class AppointmentRepository : IAppointmentRepository
                 var appointment = await _context.Appointments
                         .Include(a => a.Doctor)
                         .Include(a => a.Patient)
-                         // change AppointmentModel to AppointmentResponseModel
                         .FirstOrDefaultAsync(a => a.AppointmentId == id);
+
                 if (appointment is null)
                         return ResponseModel<AppointmentResponseModel>
                                 .Fail(EnumResponseCode.Notfound.ToString());
@@ -93,7 +93,7 @@ public class AppointmentRepository : IAppointmentRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.NoContent, "updated success.")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "Fail to edit appointment.");
+                        .Fail(EnumResponseCode.ServerError, "Fail to edit appointment.");
         }
         
         public async Task<ResponseModel<List<AppointmentResponseModel>>> GetByDoctorId(int doctorId)

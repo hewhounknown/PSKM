@@ -31,7 +31,7 @@ public class SpecialistRepository : ISpecialistRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.Created, "new specialist added.")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "fail to add new specialist.");
+                        .Fail(EnumResponseCode.ServerError, "fail to add new specialist.");
         }
 
         public async Task<ResponseModel<object>> Delete(int id)
@@ -48,7 +48,7 @@ public class SpecialistRepository : ISpecialistRepository
                 return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.NoContent, "deleted success.")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "Fail to delete specialist.");
+                        .Fail(EnumResponseCode.ServerError, "Fail to delete specialist.");
         }
 
         public async Task<ResponseModel<List<SpecialistModel>>> GetAll()
@@ -81,6 +81,6 @@ public class SpecialistRepository : ISpecialistRepository
                return result > 0 ? ResponseModel<object>
                         .Success(EnumResponseCode.NoContent, "update success.")
                         : ResponseModel<object>
-                        .Fail(EnumResponseCode.BadRequest, "Fail to update specialist.");
+                        .Fail(EnumResponseCode.ServerError, "Fail to update specialist.");
         }
 }
