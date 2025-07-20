@@ -5,6 +5,7 @@ using PSKM.Common.Interfaces.Services;
 using PSKM.Common.Models;
 using PSKM.Common.Models.Doctor;
 using PSKM.Common.Utils;
+using System.Numerics;
 
 namespace PSKM.Core.Services;
 
@@ -46,8 +47,11 @@ public class DoctorService : IDoctorService
                 return await _doctorRepository.GetById(id);
         }
 
-        public async Task<ResponseModel<object>> UpdateDoctor(int id, DoctorRequestModel model)
+        public async Task<ResponseModel<object>> UpdateDoctor(int id, DoctorRequestModel doctor)
         {
-                return await _doctorRepository.Update(id, model);
+                var validator = await _docValidator.ValidateAsync(doctor);
+                if (!validator.IsValid)
+                        return ValidationHelper.FormatErrors(validator.Errors);
+                return await _doctorRepository.Update(id, doctor);
         }
 }
