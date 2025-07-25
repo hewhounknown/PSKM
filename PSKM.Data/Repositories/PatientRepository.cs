@@ -2,7 +2,6 @@
 using PSKM.Common.Enums;
 using PSKM.Common.Interfaces.Repositories;
 using PSKM.Common.Models;
-using PSKM.Common.Models.Appointment;
 using PSKM.Common.Models.Patient;
 
 namespace PSKM.Data.Repositories;

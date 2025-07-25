@@ -30,7 +30,12 @@ public class AppDbContext : DbContext
                         builder.HasKey(x => x.PatientId);
                         builder.Property(x => x.PatientName).IsRequired();
                         builder.Property(x => x.DOB).IsRequired();
-                        builder.Property(x => x.Gender).IsRequired();
+
+                        // convert enum type to string
+                        var genderString = new EnumToStringConverter<EnumGender>();
+                        builder.Property(x => x.Gender)
+                        .HasConversion(genderString).IsRequired();
+
                         builder.Property(x => x.Address).HasMaxLength(128);
                         builder.Property(x => x.Phone).HasMaxLength(25);
                 });

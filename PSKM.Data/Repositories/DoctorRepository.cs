@@ -94,4 +94,14 @@ public class DoctorRepository : IDoctorRepository
                         : ResponseModel<object>
                         .Fail(EnumResponseCode.ServerError, "fail to update doctor.");
         }
+
+        public async Task<ResponseModel<List<DoctorResponseModel>>> GetAllBySpecialistId(int specialistId)
+        {
+                throw new NotImplementedException();
+        }
+
+        public async Task<ResponseModel<List<DoctorResponseModel>>> GetAppointmentsById(int id)
+        {
+               throw new Exception("Not implemented yet.");
+        }
 }

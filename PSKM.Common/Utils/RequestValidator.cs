@@ -27,9 +27,7 @@ public class PatientValidator : AbstractValidator<PatientRequestModel>
                 //TODO: create EnumGender and replace it here.
                 RuleFor(x => x.Gender)
                         .NotEmpty().WithMessage("Gender is required.")
-                        .Must(gender => new[] { "Male", "Female", "Other" }
-                        .Contains(gender, StringComparer.OrdinalIgnoreCase))
-                        .WithMessage("Gender must be 'Male', 'Female', or 'Other'.");
+                        .IsInEnum().WithMessage("Gender must be Male, Female or Other.");
         }
 }
 
