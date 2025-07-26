@@ -35,12 +35,12 @@ public class PatientService : IPatientService
                 return await _patientRepository.Add(patient);
         }
 
-        public async Task<ResponseModel<List<PatientModel>>> ViewAllPatients()
+        public async Task<ResponseModel<List<PatientResponseModel>>> ViewAllPatients()
         {
                 return await _patientRepository.GetAll();
         }
 
-        public async Task<ResponseModel<PatientModel>> ViewPatient(int patientId)
+        public async Task<ResponseModel<PatientResponseModel>> ViewPatient(int patientId)
         {
                 return await _patientRepository.GetById(patientId);
         }

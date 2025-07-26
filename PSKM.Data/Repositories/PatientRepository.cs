@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSKM.Common.Enums;
 using PSKM.Common.Interfaces.Repositories;
+using PSKM.Common.Mappings;
 using PSKM.Common.Models;
 using PSKM.Common.Models.Patient;
 
@@ -35,28 +36,30 @@ public class PatientRepository : IPatientRepository
                         .Fail(EnumResponseCode.ServerError, "Fail to add patient");
         }
 
-        public async Task<ResponseModel<List<PatientModel>>> GetAll()
+        public async Task<ResponseModel<List<PatientResponseModel>>> GetAll()
         {
-                var patients = await _context.Patients.ToListAsync();
+                var patients = await _context.Patients
+                        .Select(d => d.Map()) // change PatientModel to PatientResponseModel
+                        .ToListAsync();
 
                 if (patients is null || patients.Count == 0)
-                        return ResponseModel<List<PatientModel>>
+                        return ResponseModel<List<PatientResponseModel>>
                                 .Fail(EnumResponseCode.Notfound, "No patients found.");
 
-                return ResponseModel<List<PatientModel>>
+                return ResponseModel<List<PatientResponseModel>>
                         .Success(patients, EnumResponseCode.OK);
         }
 
-        public async Task<ResponseModel<PatientModel>> GetById(int id)
+        public async Task<ResponseModel<PatientResponseModel>> GetById(int id)
         {
                 var patient = await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == id);
 
                 if (patient is null)
-                        return ResponseModel<PatientModel>
+                        return ResponseModel<PatientResponseModel>
                                 .Fail(EnumResponseCode.Notfound, "No patient found.");
 
-                return ResponseModel<PatientModel>
-                        .Success(patient, EnumResponseCode.OK);
+                return ResponseModel<PatientResponseModel>
+                        .Success(patient.Map(), EnumResponseCode.OK);
         }
 
         Task<ResponseModel<object>> IPatientRepository.Delete(int id)

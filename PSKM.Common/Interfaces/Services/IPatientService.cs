@@ -7,8 +7,8 @@ namespace PSKM.Common.Interfaces.Services;
 public interface IPatientService
 {
         Task<ResponseModel<object>> RegisterPatient(PatientRequestModel patient);
-        Task<ResponseModel<List<PatientModel>>> ViewAllPatients();
-        Task<ResponseModel<PatientModel>> ViewPatient(int patientId);
+        Task<ResponseModel<List<PatientResponseModel>>> ViewAllPatients();
+        Task<ResponseModel<PatientResponseModel>> ViewPatient(int patientId);
 
         Task<ResponseModel<List<AppointmentResponseModel>>> GetAppointmentsByPatientId(int patientId);
 }

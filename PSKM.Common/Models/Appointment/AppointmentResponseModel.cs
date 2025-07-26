@@ -10,6 +10,6 @@ public class AppointmentResponseModel
         public string PatientName { get; set; }
         public string DoctorName { get; set; }
 
-        public EnumAppointmentStatus Status { get; set; }
+        public string Status { get; set; }
         public DateTime CreatedAt { get; set; }
 }

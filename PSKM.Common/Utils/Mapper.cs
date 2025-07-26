@@ -23,6 +23,20 @@ public static class Mapper
                 };
         }
 
+        //PatientModel to PatientResponseModel
+        public static PatientResponseModel Map(this PatientModel patient)
+        {
+                return new PatientResponseModel
+                {
+                        PatientId = patient.PatientId,
+                        PatientName = patient.PatientName,
+                        DOB = patient.DOB,
+                        Phone = patient.Phone,
+                        Gender = patient.Gender.ToString(),
+                        Address = patient.Address
+                };
+        }
+
         //DoctorRequestModel to DoctorModel
         public static DoctorModel Map(this DoctorRequestModel request)
         {
@@ -75,7 +89,7 @@ public static class Mapper
                         AppointmentDate = appointment.AppointmentDate,
                         PatientName = appointment.Patient.PatientName,
                         DoctorName = appointment.Doctor.DoctorName,
-                        Status = appointment.Status,
+                        Status = appointment.Status.ToString(), // Convert Enum to string
                         CreatedAt = appointment.CreatedAt
                 };
         }
