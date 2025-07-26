@@ -59,14 +59,4 @@ public class AppointmentService : IAppointmentService
 
                 return await _appointmentRepository.Update(id, appointment);
         }
-
-        public async Task<ResponseModel<List<AppointmentResponseModel>>> GetAppointmentsByDoctorId(int doctorId)
-        {
-                return await _appointmentRepository.GetByDoctorId(doctorId);
-        }
-
-        public async Task<ResponseModel<List<AppointmentResponseModel>>> GetAppointmentsByPatientId(int patientId)
-        {
-                return await _appointmentRepository.GetByPatientId(patientId);
-        }
 }

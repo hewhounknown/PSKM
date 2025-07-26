@@ -13,5 +13,4 @@ public interface IDoctorRepository
         Task<ResponseModel<object>> Delete(int id);
 
         Task<ResponseModel<List<DoctorResponseModel>>> GetAllBySpecialistId(int specialistId);
-        Task<ResponseModel<List<DoctorResponseModel>>> GetAppointmentsById(int id);
 }

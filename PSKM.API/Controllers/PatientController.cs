@@ -34,4 +34,10 @@ public class PatientController : BaseController
         {
                 return await HandleRequest(() => _patientService.ViewPatient(id));
         }
+
+        [HttpGet("{id}/appointments")]
+        public async Task<IActionResult> GetAppointmentsByPatientId(int id)
+        {
+                return await HandleRequest(() => _patientService.GetAppointmentsByPatientId(id));
+        }
 }

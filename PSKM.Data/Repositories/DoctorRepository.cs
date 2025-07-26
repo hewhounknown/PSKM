@@ -69,7 +69,7 @@ public class DoctorRepository : IDoctorRepository
 
                 if (doctor is null) return ResponseModel<DoctorResponseModel>.Fail(EnumResponseCode.Notfound.ToString());
 
-                return ResponseModel<DoctorResponseModel>.Success(doctor.Map());
+                return ResponseModel<DoctorResponseModel>.Success(doctor.Map(), EnumResponseCode.OK);
         }
 
         public async Task<ResponseModel<object>> Update(int id, DoctorRequestModel doctor)
@@ -97,11 +97,17 @@ public class DoctorRepository : IDoctorRepository
 
         public async Task<ResponseModel<List<DoctorResponseModel>>> GetAllBySpecialistId(int specialistId)
         {
-                throw new NotImplementedException();
-        }
+                var doctors = await _context.Doctors
+                        .Where(d => d.SpecialistId == specialistId)
+                        .Include(d => d.Specialist)
+                        .Select(d => d.Map())
+                        .ToListAsync();
 
-        public async Task<ResponseModel<List<DoctorResponseModel>>> GetAppointmentsById(int id)
-        {
-               throw new Exception("Not implemented yet.");
+                if (doctors is null || doctors.Count is 0)
+                        return ResponseModel<List<DoctorResponseModel>>
+                                .Fail(EnumResponseCode.Notfound, "no doctor found.");
+
+                return ResponseModel<List<DoctorResponseModel>>
+                        .Success(doctors, EnumResponseCode.OK);
         }
 }

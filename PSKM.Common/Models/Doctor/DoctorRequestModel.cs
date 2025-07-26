@@ -1,5 +1,4 @@
-﻿
-namespace PSKM.Common.Models.Doctor;
+﻿namespace PSKM.Common.Models.Doctor;
 
 public class DoctorRequestModel
 {

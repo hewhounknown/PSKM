@@ -45,16 +45,4 @@ public class AppointmentController : BaseController
         {
                 return await HandleRequest(() => _appointmentService.DeleteAppointment(id));
         }
-
-        [HttpGet("doctor/{doctorId}")]
-        public async Task<IActionResult> GetAppointmentsByDoctorId(int doctorId)
-        {
-                return await HandleRequest(() => _appointmentService.GetAppointmentsByDoctorId(doctorId));
-        }
-
-        [HttpGet("patient/{patientId}")]
-        public async Task<IActionResult> GetAppointmentsByPatientId(int patientId)
-        {
-                return await HandleRequest(() => _appointmentService.GetAppointmentsByPatientId(patientId));
-        }
 }

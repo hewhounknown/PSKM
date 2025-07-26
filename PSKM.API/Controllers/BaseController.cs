@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PSKM.Common.Models;
-using System.Threading.Tasks;
 
 namespace PSKM.API.Controllers;
 

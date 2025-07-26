@@ -1,5 +1,5 @@
-﻿using PSKM.Common.Enums;
-using PSKM.Common.Models;
+﻿using PSKM.Common.Models;
+using PSKM.Common.Models.Appointment;
 using PSKM.Common.Models.Doctor;
 
 namespace PSKM.Common.Interfaces.Services;
@@ -12,4 +12,5 @@ public interface IDoctorService
         Task<ResponseModel<object>> UpdateDoctor(int id, DoctorRequestModel doctor);
         Task<ResponseModel<object>> DeleteDoctor(int id);
 
+        Task<ResponseModel<List<AppointmentResponseModel>>> GetAppointmentsByDoctorId(int doctorId);
 }

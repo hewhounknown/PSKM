@@ -1,5 +1,4 @@
-﻿using PSKM.Common.Enums;
-using PSKM.Common.Models;
+﻿using PSKM.Common.Models;
 using PSKM.Common.Models.Specialist;
 
 namespace PSKM.Common.Interfaces.Services;

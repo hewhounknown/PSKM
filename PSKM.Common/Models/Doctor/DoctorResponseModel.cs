@@ -1,7 +1,4 @@
-﻿
-using PSKM.Common.Models.Appointment;
-
-namespace PSKM.Common.Models.Doctor;
+﻿namespace PSKM.Common.Models.Doctor;
 
 public class DoctorResponseModel
 {
