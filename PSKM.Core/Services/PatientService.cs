@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using PSKM.Common.Enums;
 using PSKM.Common.Interfaces.Repositories;
 using PSKM.Common.Interfaces.Services;
 using PSKM.Common.Models;
@@ -48,5 +47,15 @@ public class PatientService : IPatientService
         public async Task<ResponseModel<List<AppointmentResponseModel>>> GetAppointmentsByPatientId(int patientId)
         {
                 return await _appointmentRepository.GetByPatientId(patientId);
+        }
+
+        public async Task<ResponseModel<object>> EditPatient(int id, PatientRequestModel patient)
+        {
+                return await _patientRepository.Update(id, patient);
+        }
+
+        public Task<ResponseModel<object>> DeletePatient(int id)
+        {
+                return _patientRepository.Delete(id);
         }
 }

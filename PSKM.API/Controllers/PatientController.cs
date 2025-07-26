@@ -35,9 +35,16 @@ public class PatientController : BaseController
                 return await HandleRequest(() => _patientService.ViewPatient(id));
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, PatientRequestModel patient)
+                => await HandleRequest(() => _patientService.EditPatient(id, patient));
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+                => await HandleRequest(() => _patientService.DeletePatient(id));
+
+
         [HttpGet("{id}/appointments")]
         public async Task<IActionResult> GetAppointmentsByPatientId(int id)
-        {
-                return await HandleRequest(() => _patientService.GetAppointmentsByPatientId(id));
-        }
+                => await HandleRequest(() => _patientService.GetAppointmentsByPatientId(id));
 }

@@ -62,13 +62,42 @@ public class PatientRepository : IPatientRepository
                         .Success(patient.Map(), EnumResponseCode.OK);
         }
 
-        Task<ResponseModel<object>> IPatientRepository.Delete(int id)
+        public async Task<ResponseModel<object>> Delete(int id)
         {
-                throw new NotImplementedException();
+                var patient = await _context.Patients.FindAsync(id);
+
+                if (patient is null)
+                      return ResponseModel<object>
+                                .Fail(EnumResponseCode.Notfound, "No patient found.");
+
+                _context.Patients.Remove(patient);
+                int result = await _context.SaveChangesAsync();
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.NoContent, "Deleted successfully")
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.ServerError, "Fail to delete patient.");
         }
 
-        Task<ResponseModel<object>> IPatientRepository.Update(PatientRequestModel patient)
+        public async Task<ResponseModel<object>> Update(int id, PatientRequestModel patient)
         {
-                throw new NotImplementedException();
+                var existingPatient = await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == id);
+
+                if (existingPatient is null)
+                        return ResponseModel<object>
+                                .Fail(EnumResponseCode.Notfound, "No patient found.");
+
+                existingPatient.PatientName = patient.PatientName;
+                existingPatient.DOB = patient.DOB;
+                existingPatient.Phone = patient.Phone;
+                existingPatient.Gender = patient.Gender;
+                existingPatient.Address = patient.Address;
+
+                _context.Patients.Update(existingPatient);
+                int result = await _context.SaveChangesAsync();
+
+                return result > 0 ? ResponseModel<object>
+                        .Success(EnumResponseCode.NoContent, "Updated success.") 
+                        : ResponseModel<object>
+                        .Fail(EnumResponseCode.ServerError, "Fail to update patient.");
         }
 }
